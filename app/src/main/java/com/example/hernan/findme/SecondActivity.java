@@ -144,12 +144,12 @@ public class SecondActivity extends Activity {
         return diffAvg;
     }
 
-    public void cambiarIntensidad(){
+    public void cambiarIntensidad(int intensity){
         intensidad1 = (ImageView) findViewById(R.id.intensidad1);
         intensidad2 = (ImageView) findViewById(R.id.intensidad2);
         intensidad3 = (ImageView) findViewById(R.id.intensidad3);
 
-        int i = getIntensityPercent(int intensity);
+        int i = getIntensityPercent(intensity);
 
         if(i < 25){
             intensidad1.setVisibility(View.INVISIBLE);
