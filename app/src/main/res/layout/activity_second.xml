@@ -8,7 +8,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/texto"/>
+        android:id="@+id/texto"
+        android:layout_above="@+id/intensidad3"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button" />
 
 
     <Button
@@ -17,8 +20,7 @@
         android:id="@+id/button"
         android:background="@mipmap/botonactivado"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="run"/>
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="240dp"

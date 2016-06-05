@@ -33,7 +33,7 @@ public class SecondActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_second);
 
         ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION }, 1);
         ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.VIBRATE }, 1);
@@ -43,11 +43,15 @@ public class SecondActivity extends Activity {
 
         wifiManager.startScan();
 
-
+        try {
+            run();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void run(View view) throws InterruptedException {
+    public void run() throws InterruptedException {
 
         textView = (TextView) findViewById(R.id.texto);
 
@@ -135,9 +139,12 @@ public class SecondActivity extends Activity {
             intensidad2.setVisibility(View.INVISIBLE);
             intensidad3.setVisibility(View.INVISIBLE);
         }else if(i > 50 && i < 75){
+            intensidad1.setVisibility(View.VISIBLE);
             intensidad2.setVisibility(View.VISIBLE);
             intensidad3.setVisibility(View.INVISIBLE);
         }else if(i > 75){
+            intensidad1.setVisibility(View.VISIBLE);
+            intensidad2.setVisibility(View.VISIBLE);
             intensidad3.setVisibility(View.VISIBLE);
         }
     }

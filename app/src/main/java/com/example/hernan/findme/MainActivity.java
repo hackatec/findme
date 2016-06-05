@@ -3,6 +3,7 @@ package com.example.hernan.findme;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.wifi.ScanResult;
@@ -27,6 +28,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(this, SecondActivity.class);
+        startActivity(intent);
 
         }
 }
