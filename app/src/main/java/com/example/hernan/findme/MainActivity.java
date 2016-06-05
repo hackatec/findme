@@ -1,7 +1,10 @@
 package com.example.hernan.findme;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
@@ -15,12 +18,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     protected TextView textView;
     final Handler handler = new Handler();
     private final int MAX_TIME = 1000;
-    private final int MAX_DB = -50;
+    private final int MAX_DB = -90;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +52,15 @@ public class MainActivity extends AppCompatActivity {
                         Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                         textView.setText(String.valueOf(intensidad));
 
-                        if ((intensidad * -1) < 10) {
-                            v.vibrate(2000);
+                        if (Math.abs(intensidad) > 0) {
+                            v.vibrate(getMillis(intensidad));
                         }
-                        else if ((intensidad * -1) < 30) {
-                            v.vibrate(1000);
-                        }
-                        else if ((intensidad * -1) < 50) {
-                            v.vibrate(500);
-                        }
-                        else {
+                        //ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, getMillis(intensidad));
+                        //toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, getMillis(intensidad));
 
-                        }
 
                         handler.postDelayed(this,2000);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -77,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
         List<ScanResult> redes;
         WifiManager wifiManager;
         wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        wifiManager.startScan();
 
         redes = wifiManager.getScanResults();
         int level = 0;
         for(ScanResult red : redes)
         {
-            if (red.SSID.equals("Hackatec-2016"))
+            if (red.SSID.equals("Findme"))
             {
                 //Mostrar en pantalla el red.level
                 level = red.level;
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public double getMillis(int intensity) {
+    public int getMillis(int intensity) {
         int millis = 0;
         double intensityAbs = Math.abs(intensity);
         if (intensityAbs < MAX_TIME) {
