@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
     final Handler handler = new Handler();
     private final int MAX_TIME = 1000;
     private final int MAX_DB = -90;
+    private final int MIN_DB = -20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,16 +94,19 @@ public class MainActivity extends Activity {
 
     }
 
-    public int getMillis(int intensity) {
+    public double getMillis(int intensity) {
         int millis = 0;
         double intensityAbs = Math.abs(intensity);
-        if (intensityAbs < MAX_TIME) {
+        if (intensityAbs < (MAX_TIME)) {
             double maxDBAbs = Math.abs(MAX_DB);
-            double diff = maxDBAbs - intensityAbs;
+            double minDBAbs = Math.abs(MIN_DB);
+            double diff = maxDBAbs + minDBAbs - intensityAbs;
             double diffAvg = (diff / maxDBAbs);
             millis = (int) (MAX_TIME * diffAvg);
+            if (millis > MAX_TIME) {
+                millis = MAX_TIME;
+            }
         }
         return millis;
     }
 }
-
