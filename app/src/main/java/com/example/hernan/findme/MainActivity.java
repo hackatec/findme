@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected TextView textView;
     final Handler handler = new Handler();
+    private final int MAX_TIME = 1000;
+    private final int MAX_DB = -50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
 
         return level;
 
+    }
+
+    public double getMillis(int intensity) {
+        int millis = 0;
+        double intensityAbs = Math.abs(intensity);
+        if (intensityAbs < MAX_TIME) {
+            double maxDBAbs = Math.abs(MAX_DB);
+            double diff = maxDBAbs - intensityAbs;
+            double diffAvg = (diff / maxDBAbs);
+            millis = (int) (MAX_TIME * diffAvg);
+        }
+        return millis;
     }
 }
 
