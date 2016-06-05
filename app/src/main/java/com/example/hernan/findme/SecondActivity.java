@@ -22,6 +22,7 @@ import java.util.List;
 public class SecondActivity extends Activity {
 
     protected TextView textView;
+    private String tesoro;
     protected ImageView intensidad1;
     protected ImageView intensidad2;
     protected ImageView intensidad3;
@@ -34,6 +35,8 @@ public class SecondActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        tesoro = getIntent().getExtras().getString("tesoro");
 
         ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION }, 1);
         ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.VIBRATE }, 1);
@@ -95,7 +98,7 @@ public class SecondActivity extends Activity {
         int level = 0;
         for(ScanResult red : redes)
         {
-            if (red.SSID.equals("Findme"))
+            if (red.SSID.equals(tesoro))
             {
                 //Mostrar en pantalla el red.level
                 level = red.level;

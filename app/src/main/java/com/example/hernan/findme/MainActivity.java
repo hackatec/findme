@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
         EditText tesoro = (EditText) findViewById(R.id.tesoro);
         Intent siguiente = new Intent(this, SecondActivity.class);
         siguiente.putExtra("tesoro", tesoro.getText().toString());
+        startActivity(siguiente);
     }
 
 }
