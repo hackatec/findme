@@ -108,22 +108,6 @@ public class SecondActivity extends Activity {
     }
 
     public int getMillis(int intensity) {
-        int millis = 0;
-        double intensityAbs = Math.abs(intensity);
-        if (intensityAbs < (MAX_TIME)) {
-            double maxDBAbs = Math.abs(MAX_DB);
-            double minDBAbs = Math.abs(MIN_DB);
-            double diff = maxDBAbs + minDBAbs - intensityAbs;
-            double diffAvg = (diff / maxDBAbs);
-            millis = (int) (MAX_TIME * diffAvg);
-            if (millis > MAX_TIME) {
-                millis = MAX_TIME;
-            }
-        }
-        return millis;
-    }
-
-    public int getMillis(int intensity) {
         double intensityPercent = getIntensityPercent(intensity);
         int millis = (int) (MAX_TIME * intensityPercent);
         if (millis > MAX_TIME) {
@@ -148,25 +132,30 @@ public class SecondActivity extends Activity {
         intensidad1 = (ImageView) findViewById(R.id.intensidad1);
         intensidad2 = (ImageView) findViewById(R.id.intensidad2);
         intensidad3 = (ImageView) findViewById(R.id.intensidad3);
+        TextView porcentaje = (TextView) findViewById(R.id.porcentaje);
 
-        int i = getIntensityPercent(intensity);
+        double i = getIntensityPercent(intensity);
+        i *= 100;
 
-        if(i < 25){
+        porcentaje.setText(String.valueOf((int) i));
+
+        if(i <= 25){
             intensidad1.setVisibility(View.INVISIBLE);
             intensidad2.setVisibility(View.INVISIBLE);
-            intensidad3.setVisibility(View.INVISIBLE);
-        }else if(i > 25){
-            intensidad1.setVisibility(View.VISIBLE);
-            intensidad2.setVisibility(View.INVISIBLE);
-            intensidad3.setVisibility(View.INVISIBLE);
-        }else if(i > 50 && i < 75){
-            intensidad1.setVisibility(View.VISIBLE);
-            intensidad2.setVisibility(View.VISIBLE);
             intensidad3.setVisibility(View.INVISIBLE);
         }else if(i > 75){
             intensidad1.setVisibility(View.VISIBLE);
             intensidad2.setVisibility(View.VISIBLE);
             intensidad3.setVisibility(View.VISIBLE);
+        }else if(i > 50){
+            intensidad1.setVisibility(View.VISIBLE);
+            intensidad2.setVisibility(View.VISIBLE);
+            intensidad3.setVisibility(View.INVISIBLE);
+        }else if(i > 25){
+            intensidad1.setVisibility(View.VISIBLE);
+            intensidad2.setVisibility(View.INVISIBLE);
+            intensidad3.setVisibility(View.INVISIBLE);
         }
     }
 }
+
