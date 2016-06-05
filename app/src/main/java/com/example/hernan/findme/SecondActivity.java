@@ -62,7 +62,7 @@ public class SecondActivity extends Activity {
                     int intensidad = leerIntensidad();
                     Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                     textView.setText(String.valueOf(intensidad));
-                    cambiarIntensidad();
+                    cambiarIntensidad(intensidad);
 
                     if (Math.abs(intensidad) > 0) {
 
@@ -123,12 +123,33 @@ public class SecondActivity extends Activity {
         return millis;
     }
 
+    public int getMillis(int intensity) {
+        double intensityPercent = getIntensityPercent(intensity);
+        int millis = (int) (MAX_TIME * intensityPercent);
+        if (millis > MAX_TIME) {
+            millis = MAX_TIME;
+        }
+        return millis;
+    }
+
+    public double getIntensityPercent(int intensity) {
+        double diffAvg = 0;
+        double intensityAbs = Math.abs(intensity);
+        if (intensityAbs < (MAX_TIME)) {
+            double maxDBAbs = Math.abs(MAX_DB);
+            double minDBAbs = Math.abs(MIN_DB);
+            double diff = maxDBAbs + minDBAbs - intensityAbs;
+            diffAvg = (diff / maxDBAbs);
+        }
+        return diffAvg;
+    }
+
     public void cambiarIntensidad(){
         intensidad1 = (ImageView) findViewById(R.id.intensidad1);
         intensidad2 = (ImageView) findViewById(R.id.intensidad2);
         intensidad3 = (ImageView) findViewById(R.id.intensidad3);
 
-        int i = 43;
+        int i = getIntensityPercent(int intensity);
 
         if(i < 25){
             intensidad1.setVisibility(View.INVISIBLE);
