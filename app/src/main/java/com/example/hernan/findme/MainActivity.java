@@ -14,99 +14,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class MainActivity extends Activity {
 
-    protected TextView textView;
-    final Handler handler = new Handler();
-    private final int MAX_TIME = 1000;
-    private final int MAX_DB = -90;
-    private final int MIN_DB = -20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION }, 1);
-        ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.VIBRATE }, 1);
 
-        WifiManager wifiManager;
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-
-        wifiManager.startScan();
-
-    }
-
-    public void run(View view) throws InterruptedException {
-
-            textView = (TextView) findViewById(R.id.texto);
-
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        int intensidad = leerIntensidad();
-                        Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                        textView.setText(String.valueOf(intensidad));
-
-                        if (Math.abs(intensidad) > 0) {
-                            v.vibrate(getMillis(intensidad));
-                        }
-                        //ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, getMillis(intensidad));
-                        //toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, getMillis(intensidad));
-
-
-                        handler.postDelayed(this,2000);
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            handler.post(runnable);
-
-    }
-
-    public int leerIntensidad() throws InterruptedException {
-        List<ScanResult> redes;
-        WifiManager wifiManager;
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        wifiManager.startScan();
-
-        redes = wifiManager.getScanResults();
-        int level = 0;
-        for(ScanResult red : redes)
-        {
-            if (red.SSID.equals("Findme"))
-            {
-                //Mostrar en pantalla el red.level
-                level = red.level;
-                break;
-            }
         }
-
-        return level;
-
-    }
-
-    public double getMillis(int intensity) {
-        int millis = 0;
-        double intensityAbs = Math.abs(intensity);
-        if (intensityAbs < (MAX_TIME)) {
-            double maxDBAbs = Math.abs(MAX_DB);
-            double minDBAbs = Math.abs(MIN_DB);
-            double diff = maxDBAbs + minDBAbs - intensityAbs;
-            double diffAvg = (diff / maxDBAbs);
-            millis = (int) (MAX_TIME * diffAvg);
-            if (millis > MAX_TIME) {
-                millis = MAX_TIME;
-            }
-        }
-        return millis;
-    }
 }

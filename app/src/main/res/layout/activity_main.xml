@@ -5,42 +5,5 @@
     android:layout_height="match_parent"
     tools:context="com.example.hernan.findme.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/texto"/>
-
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/button"
-        android:background="@mipmap/botonactivado"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:id="@+id/imageView"
-        android:background="@mipmap/radarcircunferencia1baja"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="310dp"
-        android:layout_height="310dp"
-        android:id="@+id/imageView2"
-        android:background="@mipmap/radarcircunferencia2media"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="390dp"
-        android:id="@+id/imageView3"
-        android:background="@mipmap/radarcircunferencia3alta"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
